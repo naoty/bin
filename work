@@ -7,7 +7,7 @@ fi
 
 cd $1
 
-tmux new-window
-tmux split-window -h
-tmux send-keys -t 1 'tig' C-m
-tmux select-pane -t 0
+tmux new-session \; \
+split-window -h \; \
+send-keys -t 1 'tig' C-m \; \
+select-pane -t 0 \
