@@ -1,5 +1,3 @@
 #!/bin/sh
 
-for gem in `gem list | cut -d " " -f 1`; do
-  yes | gem uninstall $gem -a
-done
+gem list --no-versions | xargs gem uninstall -a
