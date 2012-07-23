@@ -3,6 +3,6 @@
 # check binding.pry
 cached_files = `git diff --cached --name-only`
 if cached_files.split($/).any? { |path| File.read(path).include?('binding.pry') }
-  puts 'WARNING: binding.pry is found.'
+  puts 'ERROR: binding.pry is found.'
   exit 1
 end
