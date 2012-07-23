@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+require 'thor'
+
+class CuiAboutMeClient < Thor
+
+  ROOT_PATH = 'http://cui-aboutme.dev'
+
+  desc 'me', 'curl http://cui-about.me'
+  def me
+    system "curl #{ROOT_PATH}"
+  end
+
+  desc 'index', 'curl http://cui-about.me/users'
+  def index
+    system "curl #{ROOT_PATH}/users"
+  end
+
+  desc 'show USERNAME', 'curl http://cui-about.me/USERNAME'
+  def show(username)
+    system "curl #{ROOT_PATH}/#{username}"
+  end
+
+  desc 'create USERNAME', "curl -X POST -d 'name=USERNAME' -d 'password=PASSWORD' http://cui-about.me/signup"
+  method_option :password, aliases: '-p', required: true
+  def create(username)
+    system "curl -X POST -d 'name=#{username}' -d 'password=#{options[:password]}' #{ROOT_PATH}/signup"
+  end
+
+  desc 'update USERNAME', "curl -X PUT -d 'password=PASSWORD' [-d 'key=value'] http://cui-about.me/USERNAME"
+  method_option :password, aliases: '-p', required: true
+  method_option :items, aliases: '-i', type: :hash, default: {}
+  def update(username)
+    cmd = "curl -X PUT -d 'password=#{options[:password]}'"
+    options[:items].each do |f, v|
+      cmd << " -d '#{f}=#{v}'"
+    end
+    cmd << " #{ROOT_PATH}/#{username}"
+    system cmd
+  end
+
+end
+
+CuiAboutMeClient.start
