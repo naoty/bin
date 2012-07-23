@@ -3,7 +3,7 @@ require 'thor'
 
 class CuiAboutMeClient < Thor
 
-  ROOT_PATH = 'http://cui-aboutme.dev'
+  ROOT_PATH = 'http://cui-about.dev'
 
   desc 'me', 'curl http://cui-about.me'
   def me
