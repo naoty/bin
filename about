@@ -10,8 +10,8 @@ class CuiAboutMeClient < Thor
     system "curl #{ROOT_PATH}"
   end
 
-  desc 'index', 'curl http://cui-about.me/users'
-  def index
+  desc 'users', 'curl http://cui-about.me/users'
+  def users
     system "curl #{ROOT_PATH}/users"
   end
 
