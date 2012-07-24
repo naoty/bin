@@ -16,8 +16,13 @@ class CuiAboutMeClient < Thor
   end
 
   desc 'show USERNAME', 'curl http://cui-about.me/USERNAME'
+  method_option :item, aliases: '-i'
   def show(username)
-    system "curl #{ROOT_PATH}/#{username}"
+    if options[:item]
+      system "curl #{ROOT_PATH}/#{username}/#{options[:item]}"
+    else
+      system "curl #{ROOT_PATH}/#{username}"
+    end
   end
 
   desc 'create USERNAME', "curl -X POST -d 'name=USERNAME' -d 'password=PASSWORD' http://cui-about.me/signup"
