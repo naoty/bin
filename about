@@ -25,6 +25,11 @@ class CuiAboutMeClient < Thor
     end
   end
 
+  desc 'show man of USERNAME', 'curl http://cui-about.me/USERNAME/man'
+  def man(username)
+    system "curl #{ROOT_PATH}/#{username}/man"
+  end
+
   desc 'create USERNAME', "curl -X POST -d 'name=USERNAME' -d 'password=PASSWORD' http://cui-about.me/signup"
   method_option :password, aliases: '-p', required: true
   def create(username)
