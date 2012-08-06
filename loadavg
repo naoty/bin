@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sysctl vm.loadavg | sed -e 's/vm.loadavg: { //' -e 's/ }$//'
