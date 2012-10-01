@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+
+module CSV2Plist
+
+  PLIST_HEADER = <<-EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  EOF
+
+  PLIST_FOOTER = <<-EOF
+</dict>
+</plist>
+  EOF
+
+  def self.convert(csv, plist)
+    File.open(plist, 'wb') do |file|
+      file << PLIST_HEADER
+      CSV.foreach(csv, headers: true) do |row|
+        row.each_with_index do |header, field|
+          file.puts("<key>#{row.headers[field]}</key>")
+          file.puts("<string>#{row[field]}</string>")
+        end
+      end
+      file << PLIST_FOOTER
+    end
+  end
+end
+
+if ARGV.length < 2
+  puts 'USAGE: csv2plist [filename] [target]'
+  abort
+end
+
+CSV2Plist.convert(ARGV[0], ARGV[1])
+
