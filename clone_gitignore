@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+  echo "Usage: clone_gitignore <type>"
+  exit 1
+fi
+
+curl -o ".gitignore" "https://raw.github.com/github/gitignore/master/$1.gitignore"
