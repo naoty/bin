@@ -1,3 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env ruby
 
-gem list --no-versions | xargs gem uninstall -a
+gem_list = `gem list --no-versions`
+gem_list.each_line do |line|
+  next if line.empty? || /LOCAL GEMS/ =~ line
+  system "gem uninstall -axI #{line}"
+end
