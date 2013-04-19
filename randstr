@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+n = ARGV.count > 0 ? ARGV.first.to_i : 4
+chars = (0..9).to_a + ("A".."Z").to_a
+puts chars.sample(n).join
