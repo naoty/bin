@@ -3,5 +3,6 @@
 gem_list = `gem list --no-versions`
 gem_list.each_line do |line|
   next if line.empty? || /LOCAL GEMS/ =~ line
+  next if ARGV.any? { |arg| line.include?(arg) }
   system "gem uninstall -axI #{line}"
 end
